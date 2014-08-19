@@ -9,17 +9,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
    
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
   <link rel="stylesheet" href="bootstrap.min.css" />
-  
-  <link rel="stylesheet" href="bootstrap-responsive.min.css" />
   
   <link rel="stylesheet" href="nixos-site.css" type="text/css" />
 
   <link rel="stylesheet" href="nixpaste-site.css" type="text/css" />
   
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
-  
+
+  <link rel="stylesheet" href="bootstrap-select.min.css" />
+
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/ace/1.1.5/min/ace.js" type="text/javascript" charset="utf-8"></script>
+  <script src="http://cdn.jsdelivr.net/ace/1.1.5/min/ext-modelist.js" type="text/javascript" charset="utf-8"></script>
+  <script src="bootstrap-select.min.js" type="text/javascript" charset="utf-8"></script>
  </head>
  
  <body>
@@ -68,28 +73,25 @@ $ nixpaste < ./myexpr.nix</pre>
   <div class="container">
 
    <form role="form">
+
+	<div id="acecontainer" class="row" style="display: hidden;">
+	 <div class="col-md-4 col-md-offset-8">
+	  <select data-live-search="true" class="selectpicker"></select>
+	 </div>
+	</div>
+
 	<div class="row">
-	 <div class="span12">
+	 <div class="col-md-12">
 	  <noscript>
 	   <textarea class="form-control span12" placeholder="Paste here"></textarea>
 	  </noscript>
 
-	  <script src="http://cdn.jsdelivr.net/ace/1.1.5/min/ace.js" type="text/javascript" charset="utf-8"></script>
-	  <script>   
-	   document.write('<div id="editor"></div>');
-	   var editor = ace.edit("editor");
-	   editor.setTheme("ace/theme/github");
-	   editor.getSession().setMode("ace/mode/nix");
-	   editor.renderer.setScrollMargin(10, 10, 10, 10);
-	   editor.renderer.setPadding(10, 10, 10, 10);
-	   editor.renderer.setShowGutter(false);
-	   editor.setShowPrintMargin(false);
-	   editor.setFontSize(18);
-	   editor.setHighlightActiveLine(false);
-	   editor.focus();
-	  </script>
+	  <div id="editor"></div>
 	 </div>
 	</div>
+	  
+	<script src="./nixpaste.js" type="text/javascript" charset="utf-8"></script>
+	 
 	<div class="row">
 	 <div class="col-span-12">
 	  <button type="submit" class="btn btn-large">Paste</button>
