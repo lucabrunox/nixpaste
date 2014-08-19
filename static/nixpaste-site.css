@@ -20,7 +20,7 @@ textarea {
 }
 
 #editor {
-	margin: 0 0 1em 0;
+	margin: 0 0 12px 0;
 	font-size: 1em;
 	border: 1px solid rgba(0,0,0,0.20);
 	border-radius: 4px;
