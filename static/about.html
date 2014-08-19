@@ -63,10 +63,20 @@
 	 <p class="lead">The deployment and the auto generation of this site has been made with <a href="http://nixos.org/nix">Nix</a>.
 	  </p>
 
-	 <p class="lead">All the entries expire automatically. There's a limit to the number of pastes, and to the total used disk space. There is no public browsing of the pastes.
+	 <p class="lead">There's a limit to the number of pastes, and to the total used disk space. Therefore, older entries expire automatically. There is no public browsing of the pastes.
 	 </p>
 
 	 <p class="lead">Find more about the <a href="http://nixos.org/">NixOS project</a>.</p>
+
+	 <h2>How does it work</h2>
+
+	 <p class="lead">Pastes are numerated incrementally, starting from 1. To get the URL of a paste, the number is hashed with a truncated HMAC plus a site-specific salt.</p>
+
+	 <p class="lead">Pastes are stored as files, with a simple directory hierarchy based on the hash.</p>
+
+	 <p class="lead">Before saving a new paste, older pastes are evicted until physical limits (number of pastes and disk space) are satisfied.</p>
+
+	 <p class="lead">Information about current space consumption, number of pastes, oldest and newest paste number, are saved in a simple JSON file.</p>
 	</div>
 	 
    </div>
