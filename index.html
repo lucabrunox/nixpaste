@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html lang="en">
+ 
+ <head>
+  <title>Nix Pastebin</title>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  
+  <script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript" src="jquery-ui.min.js"></script>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <script type="text/javascript" src="bootstrap.min.js"></script>
+  <link rel="stylesheet" href="bootstrap.min.css" />
+  
+  <link rel="stylesheet" href="bootstrap-responsive.min.css" />
+  
+  <link rel="stylesheet" href="nixos-site.css" type="text/css" />
+
+  <link rel="stylesheet" href="nixpaste-site.css" type="text/css" />
+  
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+  
+ </head>
+ 
+ <body>
+  
+  <div class="navbar navbar-fixed-top">
+   <div class="navbar-inner">
+	<div class="container">
+	 <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	 </button>
+	 <a class="brand" href="./index.html">
+	  <img src="nix-wiki.png" alt="NixOS" class="logo" />
+	 </a>
+	 <a class="brand" href="./index.html">NixPaste</a>
+	 <div class="nav-collapse collapse">
+	  <ul class="nav pull-left">
+	   <li><a href="./about.html">About</a></li>
+	   <li><a href="http://nixos.org">NixOS</a></li>
+	  </ul>
+	  <ul class="nav pull-right">
+	   <li><a href="https://github.com/lethalman/nixpaste"><i class="fa fa-github"></i></a></li>
+	  </ul>
+	 </div>
+	</div>
+   </div>
+  </div>
+
+  <div class="container">
+   <div class="row">
+	<div class="jumbotron span12">
+	 
+	 <h4>Paste from the command line:</h4>
+	 
+	 <pre>$ &lt;command&gt; | curl -F 'content=&lt;-' http://sprunge.us</pre>
+	 
+	 <pre>$ alias nixpaste="curl -F 'content=&lt;-' http://sprunge.us"
+$ command | nixpaste
+$ nixpaste < ./myexpr.nix</pre>
+	  
+	</div>
+   </div>
+  </div>
+  
+  <div class="container fill">
+
+   <form role="form" class="fill">
+	<div class="row">
+	 <div class="col-span-12">
+	  <textarea class="form-control span12" placeholder="Paste here"></textarea>
+	  </div>
+	</div>
+	<div class="row">
+	 <div class="col-span-12">
+	  <button type="submit" class="btn btn-large">Paste</button>
+	 </div>
+	</div>
+   </form>
+  </div>
+  
+ </body>
+</html>
