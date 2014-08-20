@@ -8,17 +8,34 @@
 	editor.renderer.setPadding(10, 10, 10, 10);
 	editor.renderer.setShowGutter(false);
 	editor.setShowPrintMargin(false);
-	editor.setFontSize(18);
+	editor.setFontSize(16);
 	editor.setHighlightActiveLine(false);
 	
 	var modelist = ace.require("ace/ext/modelist");
-	var optionsStr = "";
+	var optionsStr =
+	'<option value="ace/mode/nix" selected="selected">Nix</option>'+
+	'<option value="ace/mode/sh">Shell</option>'+
+	'<option value="ace/mode/perl">Perl</option>'+
+	'<option data-divider="true"></option>';
+	
 	for (var i in modelist.modes) {
 		var mode = modelist.modes[i];
-		var selected = mode.name == "nix" ? 'selected="selected"' : "";
-		optionsStr += "<option value='"+mode.mode+"' "+selected+">"+mode.caption+"</option>";
+		if (mode.name == "nix" || mode.name == "sh" || mode.name == "perl") {
+			continue;
+		}
+		optionsStr += "<option value='"+mode.mode+"'>"+mode.caption+"</option>";
 	}
-	$(".selectpicker").html(optionsStr);
+	$(".selectpicker").html(optionsStr).change(function(ev) {
+			editor.getSession().setMode(ev.currentTarget.value);
+	});
+	$("#fontsize").slider({
+			min: 10,
+			max: 24,
+			value: 16,
+			formater: function(val) { return "Font size: "+val; }
+	}).on ('slide', function(ev) {
+			editor.setFontSize(ev.value);
+	});
 	
 	editor.focus();
 

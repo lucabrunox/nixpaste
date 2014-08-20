@@ -11,6 +11,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link rel="stylesheet" href="bootstrap.min.css" />
+
+  <link rel="stylesheet" href="bootstrap-slider.css" />
   
   <link rel="stylesheet" href="nixos-site.css" type="text/css" />
 
@@ -25,6 +27,7 @@
   <script src="http://cdn.jsdelivr.net/ace/1.1.5/min/ace.js" type="text/javascript" charset="utf-8"></script>
   <script src="http://cdn.jsdelivr.net/ace/1.1.5/min/ext-modelist.js" type="text/javascript" charset="utf-8"></script>
   <script src="bootstrap-select.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="bootstrap-slider.js" type="text/javascript" charset="utf-8"></script>
  </head>
  
  <body>
@@ -74,30 +77,40 @@ $ nixpaste < ./myexpr.nix</pre>
 
    <form role="form">
 
-	<div id="acecontainer" class="row" style="display: hidden;">
-	 <div class="col-md-4 col-md-offset-8">
-	  <select data-live-search="true" class="selectpicker"></select>
+	<div id="acecontainer" style="display: hidden;">
+	 
+	 <div class="row">
+	  <div class="offset9 span1">
+	   <div style="height: 1px"></div>
+	   <div id="fontsize" class="span1"></div>
+	  </div>
+	  <div class="span2">
+	   <select data-live-search="true" class="selectpicker span2"></select>
+	  </div>
 	 </div>
-	</div>
 
-	<div class="row">
-	 <div class="col-md-12">
-	  <noscript>
-	   <textarea class="form-control span12" placeholder="Paste here"></textarea>
-	  </noscript>
-
-	  <div id="editor"></div>
+	 <div class="row">
+	  <div class="span12">
+	   <noscript>
+		<textarea class="form-control" placeholder="Paste here"></textarea>
+	   </noscript>
+	   
+	   <div id="editor"></div>
+	  </div>
 	 </div>
+	  
 	</div>
 	  
 	<script src="./nixpaste.js" type="text/javascript" charset="utf-8"></script>
 	 
 	<div class="row">
-	 <div class="col-span-12">
+	 <div class="span1">
 	  <button type="submit" class="btn btn-large">Paste</button>
 	 </div>
 	</div>
+
    </form>
+   
   </div>
   
  </body>

@@ -28,3 +28,9 @@ textarea {
 	height: 400px;
 	box-shadow: 0.1em 0.1em 0.5em #d0d0d0;
 }
+
+.slider-handle {
+	width: 14px !important;
+	height: 14px !important;
+	top: 3px;
+}
