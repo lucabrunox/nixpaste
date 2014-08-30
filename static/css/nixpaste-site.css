@@ -7,7 +7,7 @@ html, body {
 }
 
 textarea {
-	height: 400px;
+	height: 300px;
 	widht: 100%;
 }
 
@@ -25,7 +25,7 @@ textarea {
 	border: 1px solid rgba(0,0,0,0.20);
 	border-radius: 4px;
 	-webkit-border-radius: 4px;
-	height: 400px;
+	height: 300px;
 	box-shadow: 0.1em 0.1em 0.5em #d0d0d0;
 }
 
@@ -37,4 +37,8 @@ textarea {
 
 .slider {
 	margin-top: 3px;
+}
+
+#cmdpaste {
+	margin-top: 10px;
 }

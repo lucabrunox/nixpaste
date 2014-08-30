@@ -64,13 +64,15 @@
    <div class="row">
 	<div class="jumbotron span12">
 	 
-	 <h4>Paste from the command line:</h4>
+	 <button type="button" class="btn btn-medium btn-info" data-toggle="collapse" data-target="#cmdpaste">Paste from the command line</button>
+
+	 <div id="cmdpaste" class="collapse out">
+	  <pre>$ &lt;command&gt; | curl -F '{{POST_FIELD}}=&lt;-' {{URL}}</pre>
 	 
-	 <pre>$ &lt;command&gt; | curl -F '{{POST_FIELD}}=&lt;-' {{URL}}</pre>
-	 
-	 <pre>$ alias nixpaste="curl -F '{{POST_FIELD}}=&lt;-' {{URL}}"
+	  <pre>$ alias nixpaste="curl -F '{{POST_FIELD}}=&lt;-' {{URL}}"
 $ command | nixpaste
 $ nixpaste < ./myexpr.nix</pre>
+	 </div>
 	  
 	</div>
    </div>
@@ -78,7 +80,7 @@ $ nixpaste < ./myexpr.nix</pre>
   
   <div class="container">
 
-   <form role="form" method="POST" action="">
+   <form role="form" method="POST" action="{{ URL }}">
 
 	<div id="acecontainer" style="display: hidden;">
 	 

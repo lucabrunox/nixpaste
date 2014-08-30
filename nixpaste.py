@@ -130,18 +130,17 @@ def index():
 @app.post("/")
 def paste():
 	isBrowser = False
-	data = request.forms.get(app.config["POST_FIELD"])
-	if not data:
-		data = request.forms.get("browser_text")
+	text = request.forms.get(app.config["POST_FIELD"])
+	if not text:
+		text = request.forms.get("browser_text")
 		isBrowser = True
-		
-	if not data:
+	if not text:
 		response.status = 400
 		return 'No data\n'
 		
 	try:
 		storage = Storage (app.config)
-		hashname = storage.store (data)
+		hashname = storage.store (text)
 		redirect = '{0}/{1}\n'.format(app.config["URL"], hashname)
 		if isBrowser:
 			response.status = 303
