@@ -12,9 +12,7 @@ import json
 import re
 from copy import copy
 
-from pygments import highlight
-from pygments.formatters import HtmlFormatter
-import pygments.lexers
+syntaxRe = re.compile ("^[a-zA-Z_-]+$")
 
 configfile = file(os.getenv("NIXPASTE_CONFIG", "config.json"), "r")
 config = json.load(configfile)
@@ -145,7 +143,9 @@ def paste():
 		redirect = '{0}/{1}'.format(app.config["URL"], hashname)
 		if isBrowser:
 			response.status = 303
-			redirect += "?"+request.forms.get("syntax", "")
+			syntax = request.forms.get("syntax", "")
+			if syntaxRe.match (syntax):
+				redirect += "?"+syntax
 			response.set_header ('Location', redirect)
 		return redirect+"\n"
 	except Exception as ex:
@@ -165,8 +165,16 @@ def js(res):
 def img(res):
 	return static_file(res, os.path.join(app.config["STATIC"], "img"))
 
+@app.get("/raw/<hashname>")
+def getRaw(hashname):
+	return getPaste (hashname, "raw")
+
 @app.get("/<hashname>")
 def get(hashname):
+	return getPaste (hashname, request.query_string)
+
+
+def getPaste (hashname, syntax):
 	storage = Storage(app.config)
 	text = storage.get (hashname)
 
@@ -174,33 +182,15 @@ def get(hashname):
 		response.status = 404
 		return '{0} not found.'.format(hashname)
 
-	syntax = request.query_string
-	if not syntax:
+	if syntax == "raw":
 		response.content_type = 'text/plain; charset=UTF-8'
 		return text + '\n'
 		
-	if not re.match ("[a-zA-Z_-]", syntax):
+	if not syntaxRe.match (syntax):
 		syntax = ""
-
-	try:
-		lexer = pygments.lexers.get_lexer_by_name(syntax)
-	except:
-		lexer = pygments.lexers.TextLexer()
-
-	pasteText = highlight(
-		text,
-		lexer,
-		HtmlFormatter(
-			full=True,
-			style='borland',
-			lineanchors='n',
-			linenos='inline',
-			encoding='latin-1' # weird, but this works and utf-8 does not.
-		)
-	)
 	
 	response.content_type = 'text/html; charset=UTF-8'
-	return template ("index.tpl", **mergeConfig(pasteText=text, pasteSyntax=syntax))
+	return template ("index.tpl", **mergeConfig(pasteHash=hashname, pasteText=text, pasteSyntax=syntax))
 
 if __name__ == '__main__':
 	app.run(host=config["BIND"], port=config["PORT"], debug=True)

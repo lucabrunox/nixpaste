@@ -73,7 +73,17 @@
 $ command | nixpaste
 $ nixpaste < ./myexpr.nix</pre>
 	 </div>
-	  
+
+	 <noscript>
+	  <div>
+	   <pre>$ &lt;command&gt; | curl -F '{{POST_FIELD}}=&lt;-' {{URL}}</pre>
+	 
+	   <pre>$ alias nixpaste="curl -F '{{POST_FIELD}}=&lt;-' {{URL}}"
+$ command | nixpaste
+$ nixpaste < ./myexpr.nix</pre>
+	  </div>
+	 </noscript>
+
 	</div>
    </div>
   </div>
@@ -82,12 +92,23 @@ $ nixpaste < ./myexpr.nix</pre>
 
    <form role="form" method="POST" action="{{ URL }}">
 
-	<div id="acecontainer" style="display: hidden;">
+	<div id="acecontainer" style="display: none;">
 	 
 	 <div class="row">
+	  % setdefault("pasteHash", None)
+	  % if pasteHash:
+	  <div class="span2">
+	   <a type="button" class="btn" href="{{ URL }}/raw/{{ pasteHash }}">View raw</a>
+	  </div>
+	  <div class="offset7 span1">
+	   <div id="fontsize" class="span1"></div>
+	  </div>
+	  % else:
 	  <div class="offset9 span1">
 	   <div id="fontsize" class="span1"></div>
 	  </div>
+	  % end
+	  
 	  <div class="span2">
 	   <select name="syntax" data-live-search="true" data-syntax="{{ pasteSyntax }}" class="selectpicker span2"></select>
 	  </div>
@@ -108,7 +129,7 @@ $ nixpaste < ./myexpr.nix</pre>
 	<noscript>
 	 <div class="row">
 	  <div class="span12">
-	   <textarea name="browser_text" class="form-control" placeholder="Paste here">{{ pasteText }}</textarea>
+	   <textarea name="browser_text" class="form-control span12" placeholder="Paste here">{{ pasteText }}</textarea>
 	  </div>
 	 </div>
 	</noscript>

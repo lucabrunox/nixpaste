@@ -4,7 +4,7 @@
 	
 	var editor = ace.edit("editor");
 	editor.setTheme("ace/theme/github");
-	editor.getSession().setMode("ace/mode/nix");
+	editor.getSession().setMode("ace/mode/"+defaultMode);
 	editor.renderer.setScrollMargin(10, 10, 10, 10);
 	editor.renderer.setPadding(10, 10, 10, 10);
 	editor.renderer.setShowGutter(false);
@@ -28,8 +28,8 @@
 		if (mode.name == "nix" || mode.name == "sh" || mode.name == "perl") {
 			continue;
 		}
-		var selected = defaultMode == mode.mode ? 'selected="selected"' : "";
-		optionsStr += '<option value="'+mode.mode+'"'+selected+'>'+mode.caption+'</option>\n';
+		var selected = defaultMode == mode.name ? 'selected="selected"' : "";
+		optionsStr += '<option value="'+mode.name+'"'+selected+'>'+mode.caption+'</option>\n';
 	}
 
 	// Add languages to a cool select picker
