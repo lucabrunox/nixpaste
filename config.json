@@ -3,7 +3,7 @@
 	"STATIC": "./static",
 	"VIEWS": "./views",
 	"POST_FIELD": "text",
-	"BIND": "",
+	"BIND": "0.0.0.0",
 	"PORT": 8080,
 	"DIR": "/tmp/nixpaste",
 	"MAX_BYTES": 1000,

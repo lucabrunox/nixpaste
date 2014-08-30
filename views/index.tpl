@@ -57,6 +57,9 @@
    </div>
   </div>
 
+  % setdefault("pasteText", "")
+  % setdefault("pasteSyntax", "nix")
+  
   <div class="container">
    <div class="row">
 	<div class="jumbotron span12">
@@ -75,7 +78,7 @@ $ nixpaste < ./myexpr.nix</pre>
   
   <div class="container">
 
-   <form role="form">
+   <form role="form" method="POST" action="">
 
 	<div id="acecontainer" style="display: hidden;">
 	 
@@ -84,15 +87,17 @@ $ nixpaste < ./myexpr.nix</pre>
 	   <div id="fontsize" class="span1"></div>
 	  </div>
 	  <div class="span2">
-	   <select data-live-search="true" class="selectpicker span2"></select>
+	   <select name="syntax" data-live-search="true" data-syntax="{{ pasteSyntax }}" class="selectpicker span2"></select>
 	  </div>
 	 </div>
 
 	 <div class="row">
 	  <div class="span12">
-	   <div id="editor"></div>
+	   <div id="editor">{{ pasteText }}</div>
 	  </div>
 	 </div>
+
+	 <input type="hidden" id="ace-form" />
 	  
 	</div>
 	  
@@ -101,7 +106,7 @@ $ nixpaste < ./myexpr.nix</pre>
 	<noscript>
 	 <div class="row">
 	  <div class="span12">
-	   <textarea name="{{POST_FIELD}}" class="form-control" placeholder="Paste here"></textarea>
+	   <textarea name="browser_text" class="form-control" placeholder="Paste here">{{ pasteText }}</textarea>
 	  </div>
 	 </div>
 	</noscript>

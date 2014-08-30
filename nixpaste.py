@@ -9,6 +9,8 @@ import base64
 import hashlib
 import os
 import json
+import re
+from copy import copy
 
 from pygments import highlight
 from pygments.formatters import HtmlFormatter
@@ -30,6 +32,11 @@ TEMPLATE_PATH.insert(0, os.path.abspath (config["VIEWS"]))
 
 indexContent = template ("index.tpl", **config)
 aboutContent = template ("about.tpl", **config)
+
+def mergeConfig(**v):
+	c = copy(config)
+	c.update(v)
+	return c
 
 class Storage:
 	def __init__ (self, config):
@@ -122,14 +129,29 @@ def index():
 
 @app.post("/")
 def paste():
+	isBrowser = False
 	data = request.forms.get(app.config["POST_FIELD"])
+	if not data:
+		data = request.forms.get("browser_text")
+		isBrowser = True
+		
+	if not data:
+		response.status = 400
+		return 'No data\n'
+		
 	try:
-		storage = Storage(app.config)
+		storage = Storage (app.config)
 		hashname = storage.store (data)
-		return '{0}/{1}\n'.format(app.config["URL"], hashname)
+		redirect = '{0}/{1}\n'.format(app.config["URL"], hashname)
+		if isBrowser:
+			response.status = 303
+			redirect += "?"+request.forms.get("syntax", "")
+			response.set_header ('Location', redirect)
+		return redirect
 	except Exception as ex:
 		logging.error(ex)
-		return '{0}\n'.format(ex)
+		response.status = 400
+		return 'Bad request\n'.format(ex)
 
 @app.get("/css/<res>")
 def css(res):
@@ -146,24 +168,27 @@ def img(res):
 @app.get("/<hashname>")
 def get(hashname):
 	storage = Storage(app.config)
-	data = storage.get (hashname)
+	text = storage.get (hashname)
 
-	if not data:
+	if not text:
 		response.status = 404
 		return '{0} not found.'.format(hashname)
 
 	syntax = request.query_string
-	if not syntax:
+	if syntax == "raw":
 		response.content_type = 'text/plain; charset=UTF-8'
-		return data + '\n'
+		return text + '\n'
+		
+	if not re.match ("[a-zA-Z_-]", syntax):
+		syntax = ""
 
 	try:
 		lexer = pygments.lexers.get_lexer_by_name(syntax)
 	except:
 		lexer = pygments.lexers.TextLexer()
-	response.content_type = 'text/html; charset=UTF-8'
-	return highlight(
-		data,
+
+	pasteText = highlight(
+		text,
 		lexer,
 		HtmlFormatter(
 			full=True,
@@ -173,6 +198,9 @@ def get(hashname):
 			encoding='latin-1' # weird, but this works and utf-8 does not.
 		)
 	)
+	
+	response.content_type = 'text/html; charset=UTF-8'
+	return template ("index.tpl", **mergeConfig(pasteText=text, pasteSyntax=syntax))
 
 if __name__ == '__main__':
-	app.run(host=config["BIND"], port=config["PORT"])
+	app.run(host=config["BIND"], port=config["PORT"], debug=True)
