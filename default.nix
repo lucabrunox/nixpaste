@@ -14,8 +14,6 @@ assert hashLength > 4;
 
 let
 
-  opts = { inherit url postField bindAddress bindPort static views storageDir maxBytes maxFiles hashSalt hashLength; };
-  
   configjson = pkgs.writeText "nixpaste-config" ''{
     "STATIC": "${static}",
     "VIEWS": "${views}",
