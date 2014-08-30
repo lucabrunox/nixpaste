@@ -102,6 +102,7 @@ class Storage:
 			paste.close()
 				
 			f.seek (0)
+			f.truncate ()
 			json.dump (db, f)
 			f.flush()
 			
