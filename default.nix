@@ -1,7 +1,4 @@
-with (import <nixpkgs> {});
-with python2Packages;
-
-{ url ? "http://localhost:8080", postField ? "text",
+{ pkgs ? (import <nixpkgs> {}), url ? "http://localhost:8080", postField ? "text",
   static ? ./static, views ? ./views, gunicornArgs ? "-b 0.0.0.0:8080 -t 10",
   storageDir ? "/tmp/nixpaste", maxBytes ? 100000000, maxFiles ? 1000,
   hashSalt ? "somesalt", hashLength ? 6
@@ -10,6 +7,7 @@ with python2Packages;
 assert hashSalt != null;
 assert hashLength > 4;
 
+with pkgs; with python2Packages;
 let
 
   configjson = pkgs.writeText "nixpaste-config" ''{
