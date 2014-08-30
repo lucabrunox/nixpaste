@@ -2,8 +2,7 @@ with (import <nixpkgs> {});
 with python2Packages;
 
 { url ? "http://localhost:8080", postField ? "text",
-  bindAddress ? "", bindPort ? 8080,
-  static ? ./static, views ? ./views, unicornFlags ? "-b 0.0.0.0:8080 -t 10",
+  static ? ./static, views ? ./views, gunicornArgs ? "-b 0.0.0.0:8080 -t 10",
   storageDir ? "/tmp/nixpaste", maxBytes ? 100000000, maxFiles ? 1000,
   hashSalt ? "somesalt", hashLength ? 6
 }:
@@ -18,8 +17,6 @@ let
     "VIEWS": "${views}",
     "URL": "${url}",
     "POST_FIELD": "${postField}",
-    "BIND": "${bindAddress}",
-    "PORT": ${builtins.toString bindPort},
     "DIR": "${storageDir}",
     "MAX_BYTES": ${builtins.toString maxBytes},
     "MAX_FILES": ${builtins.toString maxFiles},
@@ -31,8 +28,9 @@ in
   
   stdenv.mkDerivation {
     name = "nixpaste";
-    
-    buildInputs = [ python gunicorn gevent makeWrapper ];
+
+    buildInputs = [ gunicorn makeWrapper ];
+    propagatedBuildInputs = [ python gevent ];
 
     inherit (python) sitePackages;
     
@@ -47,6 +45,7 @@ in
       wrapProgram $out/bin/nixpaste \
         --prefix PYTHONPATH : "$out/$sitePackages:$PYTHONPATH" \
         --set NIXPASTE_CONFIG ${configjson} \
+        --set GUNICORN_ARGS '"''${GUNICORN_ARGS:-${gunicornArgs}}"' \
         --prefix PATH : $PATH
       patchShebangs $out
     '';

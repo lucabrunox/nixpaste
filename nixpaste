@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+exec gunicorn ${GUNICORN_ARGS:--b 0.0.0.0:8080 -t 10} nixpaste:app

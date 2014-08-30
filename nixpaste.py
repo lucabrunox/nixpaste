@@ -28,9 +28,6 @@ app.config.update (config)
 
 TEMPLATE_PATH.insert(0, os.path.abspath (config["VIEWS"]))
 
-indexContent = template ("index.tpl", **config)
-aboutContent = template ("about.tpl", **config)
-
 def mergeConfig(**v):
 	c = copy(config)
 	c.update(v)
@@ -123,11 +120,11 @@ class Storage:
 
 @app.get("/")
 def index():
-	return indexContent
+	return template ("index.tpl", **app.config)
 
-@app.get("/about.html")
+@app.get("/about")
 def index():
-	return aboutContent
+	return template ("about.tpl", **app.config)
 
 @app.post("/")
 def paste():

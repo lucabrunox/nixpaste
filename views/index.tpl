@@ -40,13 +40,13 @@
 	  <span class="icon-bar"></span>
 	  <span class="icon-bar"></span>
 	 </button>
-	 <a class="brand" href="index.html">
+	 <a class="brand" href="{{URL}}">
 	  <img src="img/nix-wiki.png" alt="NixOS" class="logo" />
 	 </a>
-	 <a class="brand" href="index.html">NixPaste</a>
+	 <a class="brand" href="{{URL}}">NixPaste</a>
 	 <div class="nav-collapse collapse">
 	  <ul class="nav pull-left">
-	   <li><a href="about.html">About</a></li>
+	   <li><a href="about">About</a></li>
 	   <li><a href="http://nixos.org">NixOS</a></li>
 	  </ul>
 	  <ul class="nav pull-right">
@@ -64,7 +64,7 @@
    <div class="row">
 	<div class="jumbotron span12">
 	 
-	 <button type="button" class="btn btn-medium btn-info" data-toggle="collapse" data-target="#cmdpaste">Paste from the command line</button>
+	 <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#cmdpaste"><i class="fa fa-keyboard-o"></i> Paste from the command line</button>
 
 	 <div id="cmdpaste" class="collapse out">
 	  <pre>$ &lt;command&gt; | curl -F '{{POST_FIELD}}=&lt;-' {{URL}}</pre>
@@ -145,7 +145,7 @@ $ nixpaste < ./myexpr.nix</pre>
 
 	<div class="row">
 	 <div class="span1">
-	  <button type="submit" class="btn btn-large">Paste</button>
+	  <button type="submit" class="btn btn-large btn-info">Paste</button>
 	 </div>
 	</div>
 

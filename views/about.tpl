@@ -14,13 +14,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <script type="text/javascript" src="bootstrap.min.js"></script>
-  <link rel="stylesheet" href="bootstrap.min.css" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
   
-  <link rel="stylesheet" href="bootstrap-responsive.min.css" />
+  <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
   
-  <link rel="stylesheet" href="nixos-site.css" type="text/css" />
+  <link rel="stylesheet" href="css/nixos-site.css" type="text/css" />
 
-  <link rel="stylesheet" href="nixpaste-site.css" type="text/css" />
+  <link rel="stylesheet" href="css/nixpaste-site.css" type="text/css" />
   
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
   
@@ -36,10 +36,10 @@
 	  <span class="icon-bar"></span>
 	  <span class="icon-bar"></span>
 	 </button>
-	 <a class="brand" href="./index.html">
-	  <img src="nix-wiki.png" alt="NixOS" class="logo" />
+	 <a class="brand" href="{{URL}}">
+	  <img src="img/nix-wiki.png" alt="NixOS" class="logo" />
 	 </a>
-	 <a class="brand" href="./index.html">NixPaste</a>
+	 <a class="brand" href="{{URL}}">NixPaste</a>
 	 <div class="nav-collapse collapse">
 	  <ul class="nav pull-left">
 	   <li><a href="./about.html">About</a></li>
