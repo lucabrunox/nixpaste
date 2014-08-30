@@ -128,6 +128,15 @@ $ nixpaste < ./myexpr.nix</pre>
 
 	<noscript>
 	 <div class="row">
+	  % setdefault("pasteHash", None)
+	  % if pasteHash:
+	  <div class="span2">
+	   <a type="button" class="btn" href="{{ URL }}/raw/{{ pasteHash }}">View raw</a>
+	  </div>
+	  % end
+	 </div>
+	 
+	 <div class="row">
 	  <div class="span12">
 	   <textarea name="browser_text" class="form-control span12" placeholder="Paste here">{{ pasteText }}</textarea>
 	  </div>
