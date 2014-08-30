@@ -142,12 +142,12 @@ def paste():
 	try:
 		storage = Storage (app.config)
 		hashname = storage.store (text)
-		redirect = '{0}/{1}\n'.format(app.config["URL"], hashname)
+		redirect = '{0}/{1}'.format(app.config["URL"], hashname)
 		if isBrowser:
 			response.status = 303
 			redirect += "?"+request.forms.get("syntax", "")
 			response.set_header ('Location', redirect)
-		return redirect
+		return redirect+"\n"
 	except Exception as ex:
 		logging.error(ex)
 		response.status = 400
@@ -175,7 +175,7 @@ def get(hashname):
 		return '{0} not found.'.format(hashname)
 
 	syntax = request.query_string
-	if syntax == "raw":
+	if not syntax:
 		response.content_type = 'text/plain; charset=UTF-8'
 		return text + '\n'
 		
