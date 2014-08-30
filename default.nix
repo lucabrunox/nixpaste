@@ -1,6 +1,6 @@
 { pkgs ? (import <nixpkgs> {}), url ? "http://localhost:8080", postField ? "text",
   static ? ./static, views ? ./views, gunicornArgs ? "-b 0.0.0.0:8080 -t 10",
-  storageDir ? "/tmp/nixpaste", maxBytes ? 100000000, maxFiles ? 1000,
+  storageDir ? "/tmp/nixpaste", maxBytes ? 100000000, maxFiles ? 100000,
   hashSalt ? "somesalt", hashLength ? 6
 }:
 
