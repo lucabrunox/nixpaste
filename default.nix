@@ -1,5 +1,5 @@
 with (import <nixpkgs> {});
-with pythonPackages;
+with python2Packages;
 
 { url ? "http://localhost:8080", postField ? "text",
   bindAddress ? "", bindPort ? 8080,
@@ -33,7 +33,7 @@ in
   stdenv.mkDerivation {
     name = "nixpaste";
     
-    buildInputs = [ python2 makeWrapper ];
+    buildInputs = [ python gevent makeWrapper ];
     
     buildCommand = ''
       mkdir -p $out/bin

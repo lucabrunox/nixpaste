@@ -11,6 +11,7 @@ import os
 import json
 import re
 from copy import copy
+from gevent import monkey; monkey.patch_all()
 
 syntaxRe = re.compile ("^[a-zA-Z_-]+$")
 
@@ -60,7 +61,7 @@ class Storage:
 			f = file(os.path.join (self.config["DIR"], "db"), "r+b")
 		except:
 			f = file(os.path.join (self.config["DIR"], "db"), "w+b")
-			
+
 		fcntl.lockf(f, fcntl.LOCK_EX)
 		try:
 			f.seek(0)
@@ -70,6 +71,10 @@ class Storage:
 			db = { "byte_size": 0, "file_count": 0, "first": 0, "last": 0 }
 
 		try:
+			if len(data) > self.config["MAX_BYTES"]/2:
+				response.status = 413
+				raise RuntimeError ("Too large")
+				
 			while db["byte_size"] + len(data) > self.config["MAX_BYTES"] or db["file_count"] + 1 > self.config["MAX_FILES"]:
 				if db["first"]:
 					evict = self.fullpath (self.hashname (db["first"]))
@@ -98,7 +103,7 @@ class Storage:
 			paste = file(self.fullpath (hashname), "wb")
 			paste.write (data)
 			paste.close()
-				
+
 			f.seek (0)
 			f.truncate ()
 			json.dump (db, f)
@@ -193,4 +198,4 @@ def getPaste (hashname, syntax):
 	return template ("index.tpl", **mergeConfig(pasteHash=hashname, pasteText=text, pasteSyntax=syntax))
 
 if __name__ == '__main__':
-	app.run(host=config["BIND"], port=config["PORT"], debug=True)
+	app.run(host=config["BIND"], port=config["PORT"], server='gevent', debug=True)
