@@ -3,7 +3,7 @@
 import logging
 import random
 import urllib
-from bottle import Bottle, run, request, response, static_file, template, TEMPLATE_PATH
+from bottle import Bottle, run, request, response, static_file, template, TEMPLATE_PATH, BaseRequest
 import fcntl
 import base64
 import hashlib
@@ -11,7 +11,6 @@ import os
 import json
 import re
 from copy import copy
-from gevent import monkey; monkey.patch_all()
 
 syntaxRe = re.compile ("^[a-zA-Z_-]+$")
 
@@ -71,9 +70,8 @@ class Storage:
 			db = { "byte_size": 0, "file_count": 0, "first": 0, "last": 0 }
 
 		try:
-			if len(data) > self.config["MAX_BYTES"]/2:
-				response.status = 413
-				raise RuntimeError ("Too large")
+			if len(data) > self.config["MAX_BYTES"]:
+				raise RuntimeError("Too large")
 				
 			while db["byte_size"] + len(data) > self.config["MAX_BYTES"] or db["file_count"] + 1 > self.config["MAX_FILES"]:
 				if db["first"]:
@@ -198,4 +196,4 @@ def getPaste (hashname, syntax):
 	return template ("index.tpl", **mergeConfig(pasteHash=hashname, pasteText=text, pasteSyntax=syntax))
 
 if __name__ == '__main__':
-	app.run(host=config["BIND"], port=config["PORT"], server='gevent', debug=True)
+	app.run(host="0.0.0.0", port="8080")

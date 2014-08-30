@@ -3,12 +3,9 @@
 	"STATIC": "./static",
 	"VIEWS": "./views",
 	"POST_FIELD": "text",
-	"BIND": "0.0.0.0",
-	"PORT": 8080,
 	"DIR": "/tmp/nixpaste",
-	"MAX_BYTES": 1000,
-	"MAX_FILES": 3,
+	"MAX_BYTES": 100000000,
+	"MAX_FILES": 1000,
 	"SALT": "somesalt",
-	"LENGTH": 6,
-	"DEBUG": true
+	"LENGTH": 6
 }
