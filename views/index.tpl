@@ -22,7 +22,7 @@
 
   <link rel="stylesheet" href="css/bootstrap-select.min.css" />
 
-  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="http://cdn.jsdelivr.net/ace/1.1.5/min/ace.js" type="text/javascript" charset="utf-8"></script>
   <script src="http://cdn.jsdelivr.net/ace/1.1.5/min/ext-modelist.js" type="text/javascript" charset="utf-8"></script>
@@ -40,13 +40,13 @@
 	  <span class="icon-bar"></span>
 	  <span class="icon-bar"></span>
 	 </button>
-	 <a class="brand" href="./index.html">
-	  <img src="nix-wiki.png" alt="NixOS" class="logo" />
+	 <a class="brand" href="index.html">
+	  <img src="img/nix-wiki.png" alt="NixOS" class="logo" />
 	 </a>
-	 <a class="brand" href="./index.html">NixPaste</a>
+	 <a class="brand" href="index.html">NixPaste</a>
 	 <div class="nav-collapse collapse">
 	  <ul class="nav pull-left">
-	   <li><a href="./about.html">About</a></li>
+	   <li><a href="about.html">About</a></li>
 	   <li><a href="http://nixos.org">NixOS</a></li>
 	  </ul>
 	  <ul class="nav pull-right">
@@ -63,9 +63,9 @@
 	 
 	 <h4>Paste from the command line:</h4>
 	 
-	 <pre>$ &lt;command&gt; | curl -F 'content=&lt;-' http://sprunge.us</pre>
+	 <pre>$ &lt;command&gt; | curl -F '{{POST_FIELD}}=&lt;-' {{URL}}</pre>
 	 
-	 <pre>$ alias nixpaste="curl -F 'content=&lt;-' http://sprunge.us"
+	 <pre>$ alias nixpaste="curl -F '{{POST_FIELD}}=&lt;-' {{URL}}"
 $ command | nixpaste
 $ nixpaste < ./myexpr.nix</pre>
 	  
@@ -90,10 +90,6 @@ $ nixpaste < ./myexpr.nix</pre>
 
 	 <div class="row">
 	  <div class="span12">
-	   <noscript>
-		<textarea class="form-control" placeholder="Paste here"></textarea>
-	   </noscript>
-	   
 	   <div id="editor"></div>
 	  </div>
 	 </div>
@@ -101,7 +97,15 @@ $ nixpaste < ./myexpr.nix</pre>
 	</div>
 	  
 	<script src="js/nixpaste.js" type="text/javascript" charset="utf-8"></script>
-	 
+
+	<noscript>
+	 <div class="row">
+	  <div class="span12">
+	   <textarea name="{{POST_FIELD}}" class="form-control" placeholder="Paste here"></textarea>
+	  </div>
+	 </div>
+	</noscript>
+
 	<div class="row">
 	 <div class="span1">
 	  <button type="submit" class="btn btn-large">Paste</button>

@@ -1,0 +1,14 @@
+{
+	"URL": "http://paste.nixos.org",
+	"STATIC": "./static",
+	"VIEWS": "./views",
+	"POST_FIELD": "text",
+	"BIND": "",
+	"PORT": 8080,
+	"DIR": "/tmp/asd",
+	"MAX_BYTES": 1000,
+	"MAX_FILES": 3,
+	"SALT": "Lkhaelkhalekghl",
+	"LENGTH": 6,
+	"DEBUG": true
+}
