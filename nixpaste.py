@@ -124,7 +124,7 @@ def index():
 
 @app.get("/favicon.ico")
 def favicon():
-	return static_file ("favicon.ico", os.path.join (app.config["STATIC"], "img"))
+	return static_file ("favicon.ico", app.config["STATIC"])
 	
 @app.get("/about")
 def index():
