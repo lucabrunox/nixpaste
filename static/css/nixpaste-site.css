@@ -1,27 +1,40 @@
 html, body {
     height: 100%;
-}
-
-.fill {
-    height: 100%;
+	padding-top: 0 !important;
 }
 
 textarea {
-	height: 300px;
-	widht: 100%;
+	width: 100%;
 }
 
 .about {
 	margin-top: 25px;
 }
 
+.fill {
+	height: 100%;
+}
+
+.as-table {
+    display: table;
+    height: 100%;
+	width: 100%;
+}
+
+.as-table-row {
+    display: table-row;
+    height: 100%;
+}
+
+.nomargin {
+	margin: 0 0 0 0;
+}	
+
 #editor {
-	margin: 0 0 12px 0;
 	font-size: 1em;
 	border: 1px solid rgba(0,0,0,0.20);
 	border-radius: 4px;
 	-webkit-border-radius: 4px;
-	height: 300px;
 	box-shadow: 0.1em 0.1em 0.5em #d0d0d0;
 }
 
@@ -37,4 +50,9 @@ textarea {
 
 #cmdpaste {
 	margin-top: 10px;
+}
+
+#pastesubmit {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }

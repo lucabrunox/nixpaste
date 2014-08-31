@@ -30,7 +30,7 @@
   <script src="js/bootstrap-slider.js" type="text/javascript" charset="utf-8"></script>
  </head>
  
- <body>
+ <body class="fill">
   
   <div class="navbar navbar-fixed-top">
    <div class="navbar-inner">
@@ -60,7 +60,9 @@
   % setdefault("pasteText", "")
   % setdefault("pasteSyntax", "nix")
   
-  <div class="container">
+  <div class="container fill">
+   <div class="as-table">
+	<div class="row" style="height: 50px"></div>
    <div class="row">
 	<div class="jumbotron span12">
 	 
@@ -86,14 +88,11 @@ $ nixpaste < ./myexpr.nix</pre>
 
 	</div>
    </div>
-  </div>
-  
-  <div class="container">
 
-   <form role="form" method="POST" action="{{ URL }}">
-
-	<div id="acecontainer" style="display: none;">
-	 
+   <form role="form" method="POST" class="as-table-row" action="{{ URL }}">
+	<div class="fill as-table">
+	<div id="acecontainer" class="as-table-row" style="display: none;">
+	 <div class="as-table">
 	 <div class="row">
 	  % setdefault("pasteHash", None)
 	  % if pasteHash:
@@ -114,11 +113,12 @@ $ nixpaste < ./myexpr.nix</pre>
 	  </div>
 	 </div>
 
-	 <div class="row">
-	  <div class="span12">
-	   <div id="editor">{{ pasteText }}</div>
+	 <div class="row as-table-row">
+	  <div class="span12 fill nomargin">
+	   <div id="editor" class="fill">{{ pasteText }}</div>
 	  </div>
 	 </div>
+	 </div> <!-- as-table -->
 
 	 <input type="hidden" id="ace-form" />
 	  
@@ -126,7 +126,8 @@ $ nixpaste < ./myexpr.nix</pre>
 	  
 	<script src="js/nixpaste.js" type="text/javascript" charset="utf-8"></script>
 
-	<noscript>
+	<noscript class="as-table-row">
+	 <div class="as-table">
 	 <div class="row">
 	  % setdefault("pasteHash", None)
 	  % if pasteHash:
@@ -136,18 +137,20 @@ $ nixpaste < ./myexpr.nix</pre>
 	  % end
 	 </div>
 	 
-	 <div class="row">
-	  <div class="span12">
-	   <textarea name="browser_text" class="form-control span12" placeholder="Paste here">{{ pasteText }}</textarea>
+	 <div class="row fill as-table-row">
+	  <div class="span12 fill nomargin">
+	   <textarea name="browser_text" class="form-control span12 fill" placeholder="Paste here">{{ pasteText }}</textarea>
 	  </div>
 	 </div>
+	 </div> <!-- as-table -->
 	</noscript>
 
-	<div class="row">
+	<div id="pastesubmit" class="row">
 	 <div class="span1">
 	  <button type="submit" class="btn btn-large btn-info">Paste</button>
 	 </div>
 	</div>
+	</div><!-- as-table -->
 
    </form>
    
