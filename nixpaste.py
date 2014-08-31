@@ -12,6 +12,8 @@ import json
 import re
 from copy import copy
 
+os.umask(0077)
+
 syntaxRe = re.compile ("^[a-zA-Z_-]+$")
 
 configfile = file(os.getenv("NIXPASTE_CONFIG", "config.json"), "r")
