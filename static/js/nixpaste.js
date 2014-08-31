@@ -11,6 +11,8 @@
 	editor.setShowPrintMargin(false);
 	editor.setFontSize(16);
 	editor.setHighlightActiveLine(false);
+	// unbind stolen ctrl+l
+	editor.commands.removeCommands(["gotoline"]);
 
 	// List ace language
 	var modelist = ace.require("ace/ext/modelist");
