@@ -62,7 +62,7 @@
   
   <div class="container fill">
    <div class="as-table">
-	<div class="row" style="height: 50px"></div>
+   <div class="row" style="height: 50px"></div>
    <div class="row">
 	<div class="jumbotron span12">
 	 

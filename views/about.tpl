@@ -8,12 +8,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
   
-  <script type="text/javascript" src="jquery.min.js"></script>
-  <script type="text/javascript" src="jquery-ui.min.js"></script>
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <script type="text/javascript" src="bootstrap.min.js"></script>
   <link rel="stylesheet" href="css/bootstrap.min.css" />
   
   <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
@@ -54,6 +50,7 @@
   </div>
 
   <div class="container">
+   <div class="row" style="height: 50px"></div>
    <div class="row">
 	<div class="about jumbotron span12">
 
