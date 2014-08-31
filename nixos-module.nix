@@ -3,7 +3,7 @@ with lib;
 
 let
   cfg = config.services.nixpaste;
-  nixpaste = cfg.expr ({ inherit pkgs; } // cfg.config);
+  nixpaste = import ./default.nix ({ inherit pkgs; } // cfg.config);
 in
 
 {
@@ -13,9 +13,6 @@ in
       enable = mkOption {
         default = false;
         type = types.bool;
-      };
-
-      expr = mkOption {
       };
 
       config = mkOption {

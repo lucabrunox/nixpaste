@@ -20,7 +20,6 @@ Deployment on NixOS:
   
   services.nixpaste = {
     enable = true;
-    expr = import /home/nixpaste/nixpaste;
     config = {
       storageDir = "/home/nixpaste/storage";
       url = "http://nixpaste.noip.me";
