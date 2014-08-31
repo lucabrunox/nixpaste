@@ -31,6 +31,8 @@ in
     propagatedBuildInputs = [ python gevent ];
 
     inherit (python) sitePackages;
+    NIXPASTE_CONFIG = configjson;
+    GUNICORN_ARGS = gunicornArgs;
     
     buildCommand = ''
       mkdir -p $out/bin
@@ -44,7 +46,7 @@ in
         --prefix PYTHONPATH : "$out/$sitePackages:$PYTHONPATH" \
         --set NIXPASTE_CONFIG ${configjson} \
         --set GUNICORN_ARGS '"''${GUNICORN_ARGS:-${gunicornArgs}}"' \
-        --prefix PATH : $PATH
+        --prefix PATH : ${python}/bin:${gunicorn}/bin
       patchShebangs $out
     '';
   }

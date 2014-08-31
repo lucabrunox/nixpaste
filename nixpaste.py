@@ -122,6 +122,10 @@ class Storage:
 def index():
 	return template ("index.tpl", **app.config)
 
+@app.get("/favicon.ico")
+def favicon():
+	return static_file ("favicon.ico", os.path.join (app.config["STATIC"], "img"))
+	
 @app.get("/about")
 def index():
 	return template ("about.tpl", **app.config)
