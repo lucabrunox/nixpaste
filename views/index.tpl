@@ -59,6 +59,8 @@
 
   % setdefault("pasteText", "")
   % setdefault("pasteSyntax", "nix")
+  % setdefault("pasteHash", None)
+  % setdefault("deleteToken", None)
   
   <div class="container fill">
    <div class="as-table">
@@ -94,12 +96,14 @@ $ nixpaste < ./myexpr.nix</pre>
 	<div id="acecontainer" class="as-table-row" style="display: none;">
 	 <div class="as-table">
 	 <div class="row">
-	  % setdefault("pasteHash", None)
 	  % if pasteHash:
-	  <div class="span2">
-	   <a type="button" class="btn" href="{{ URL }}/raw/{{ pasteHash }}">View raw</a>
+	  <div class="span3">
+	   <a class="btn" href="{{ URL }}/raw/{{ pasteHash }}">View raw</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	   % if deleteToken:
+	   <a class="muted" href="{{URL}}/del/{{pasteHash}}/{{deleteToken}}">Delete link</a>
+	   % end
 	  </div>
-	  <div class="offset7 span1">
+	  <div class="offset6 span1">
 	   <div id="fontsize" class="span1"></div>
 	  </div>
 	  % else:
@@ -129,7 +133,6 @@ $ nixpaste < ./myexpr.nix</pre>
 	<noscript class="as-table-row">
 	 <div class="as-table">
 	 <div class="row">
-	  % setdefault("pasteHash", None)
 	  % if pasteHash:
 	  <div class="span2">
 	   <a type="button" class="btn" href="{{ URL }}/raw/{{ pasteHash }}">View raw</a>

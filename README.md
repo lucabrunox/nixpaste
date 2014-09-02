@@ -1,6 +1,8 @@
 nixpaste
 ========
 
+Online [pastebin here](http://nixpaste.noip.me).
+
 Pastebin powered by Python and deployed by Nix:
 
 ```

@@ -43,11 +43,64 @@ class Storage:
 		h = hashlib.pbkdf2_hmac('sha256', str(num), self.config["SALT"], 200000, self.config["LENGTH"])
 		return base64.urlsafe_b64encode(h)
 
+	def firstview (self, hashname):
+		return self.fullpath(hashname)+".firstview"
+		
+	def markviewed (self, hashname):
+		try:
+			os.unlink (self.firstview (hashname))
+		except:
+			pass
+
+	def isfirstview (self, hashname):
+		try:
+			os.stat (self.firstview (hashname))
+			return True
+		except:
+			return False
+		
 	def dirname (self, hashname):
 		return os.path.join (self.config["DIR"], hashname[0], hashname[1])
 		
 	def fullpath (self, hashname):
 		return os.path.join (self.dirname (hashname), hashname)
+
+	def deletetoken (self, hashname):
+		h = hashlib.pbkdf2_hmac('sha256', hashname+"|delete", self.config["SALT"]+"|delete", 200000, self.config["LENGTH"])
+		return base64.urlsafe_b64encode(h)
+		
+	def delete (self, hashname, token):
+		if self.deletetoken(hashname) == token:
+			f = file(os.path.join (self.config["DIR"], "db"), "r+b")
+
+			fcntl.lockf(f, fcntl.LOCK_EX)
+
+			try:
+				f.seek(0)
+				db = json.load (f)
+
+				filename = self.fullpath (hashname)
+				stat = os.stat(filename)
+				os.unlink(filename)
+				self.markviewed (hashname)
+				
+				db["byte_size"] -= stat.st_size
+				db["file_count"] -= 1
+				if self.hashname (db["first"]) == hashname:
+					db["first"] += 1
+
+				f.seek (0)
+				f.truncate ()
+				json.dump (db, f)
+				f.flush()
+
+				return True
+					
+			finally:
+				fcntl.lockf(f, fcntl.LOCK_UN)
+				f.close()
+
+		return False
 
 	def store (self, data):
 		try:
@@ -101,6 +154,9 @@ class Storage:
 			paste.write (data)
 			paste.close()
 
+			firstview = file(self.firstview (hashname), "wb")
+			firstview.close ()
+
 			f.seek (0)
 			f.truncate ()
 			json.dump (db, f)
@@ -116,9 +172,13 @@ class Storage:
 			f = file(self.fullpath (hashname), "r")
 			data = f.read()
 			f.close()
-			return data
+
+			if self.isfirstview (hashname):
+				return data, self.deletetoken (hashname)
+			else:
+				return data, None
 		except:
-			return None
+			return None, None
 
 @app.get("/")
 def index():
@@ -153,6 +213,8 @@ def paste():
 			if syntaxRe.match (syntax):
 				redirect += "?"+syntax
 			response.set_header ('Location', redirect)
+		else:
+			storage.markviewed (hashname)
 		return redirect+"\n"
 	except Exception as ex:
 		logging.error(ex)
@@ -175,6 +237,17 @@ def img(res):
 def getRaw(hashname):
 	return getPaste (hashname, "raw")
 
+@app.get("/del/<hashname>/<token>")
+def delete(hashname, token):
+	storage = Storage(app.config)
+	if not storage.delete (hashname, token):
+		response.status = 404
+		return '{0} could not be deleted.'.format(hashname)
+
+	response.status = 303
+	response.set_header ('Location', app.config["URL"])
+	return '{0} has been deleted.'.format(hashname)
+	
 @app.get("/<hashname>")
 def get(hashname):
 	return getPaste (hashname, request.query_string)
@@ -182,7 +255,8 @@ def get(hashname):
 
 def getPaste (hashname, syntax):
 	storage = Storage(app.config)
-	text = storage.get (hashname)
+	text, deletetoken = storage.get (hashname)
+	storage.markviewed (hashname)
 
 	if not text:
 		response.status = 404
@@ -196,7 +270,7 @@ def getPaste (hashname, syntax):
 		syntax = ""
 	
 	response.content_type = 'text/html; charset=UTF-8'
-	return template ("index.tpl", **mergeConfig(pasteHash=hashname, pasteText=text, pasteSyntax=syntax))
+	return template ("index.tpl", **mergeConfig(pasteHash=hashname, pasteText=text, pasteSyntax=syntax, deleteToken=deletetoken))
 
 if __name__ == '__main__':
 	app.run(host="0.0.0.0", port="8080")
