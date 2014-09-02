@@ -14,7 +14,7 @@ from copy import copy
 
 os.umask(0077)
 
-syntaxRe = re.compile ("^[a-zA-Z_-]+$")
+nameRe = re.compile ("^[a-zA-Z0-9_-]+$")
 
 configfile = file(os.getenv("NIXPASTE_CONFIG", "config.json"), "r")
 config = json.load(configfile)
@@ -168,6 +168,9 @@ class Storage:
 			f.close()
 
 	def get (self, hashname):
+		if not nameRe.match (hashname):
+			return None, None
+			
 		try:
 			f = file(self.fullpath (hashname), "r")
 			data = f.read()
@@ -210,7 +213,7 @@ def paste():
 		if isBrowser:
 			response.status = 303
 			syntax = request.forms.get("syntax", "")
-			if syntaxRe.match (syntax):
+			if nameRe.match (syntax):
 				redirect += "?"+syntax
 			response.set_header ('Location', redirect)
 		else:
@@ -266,7 +269,7 @@ def getPaste (hashname, syntax):
 		response.content_type = 'text/plain; charset=UTF-8'
 		return text + '\n'
 		
-	if not syntaxRe.match (syntax):
+	if not nameRe.match (syntax):
 		syntax = ""
 	
 	response.content_type = 'text/html; charset=UTF-8'
