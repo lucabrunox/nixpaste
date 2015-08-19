@@ -1,7 +1,7 @@
 nixpaste
 ========
 
-Online [pastebin here](http://nixpaste.noip.me).
+Online [pastebin here](http://nixpaste.lbr.uno).
 
 Pastebin powered by Python and deployed by Nix:
 
@@ -24,7 +24,7 @@ Deployment on NixOS:
     enable = true;
     config = {
       storageDir = "/home/nixpaste/storage";
-      url = "http://nixpaste.noip.me";
+      url = "http://nixpaste.lbr.uno";
     };
   };
 }
