@@ -1,6 +1,7 @@
 (function(){
 	$("#acecontainer").show();
 	var defaultMode = window.location.search.substring(1) || "nix";
+	var defaultFontSize = 20;
 	
 	var editor = ace.edit("editor");
 	editor.setTheme("ace/theme/github");
@@ -9,7 +10,7 @@
 	editor.renderer.setPadding(10, 10, 10, 10);
 	editor.renderer.setShowGutter(false);
 	editor.setShowPrintMargin(false);
-	editor.setFontSize(16);
+	editor.setFontSize(defaultFontSize);
 	editor.setHighlightActiveLine(false);
 	// unbind stolen ctrl+l
 	editor.commands.removeCommands(["gotoline"]);
@@ -42,8 +43,8 @@
 	// Add font size slider
 	$("#fontsize").slider({
 			min: 10,
-			max: 24,
-			value: 16,
+			max: 30,
+			value: defaultFontSize,
 			formater: function(val) { return "Font size: "+val; }
 	}).on ('slide', function(ev) {
 			editor.setFontSize(ev.value);
