@@ -18,14 +18,14 @@
 
   <link rel="stylesheet" href="css/nixpaste-site.css" type="text/css" />
   
-  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
 
   <link rel="stylesheet" href="css/bootstrap-select.min.css" />
 
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script src="http://cdn.jsdelivr.net/ace/1.1.5/min/ace.js" type="text/javascript" charset="utf-8"></script>
-  <script src="http://cdn.jsdelivr.net/ace/1.1.5/min/ext-modelist.js" type="text/javascript" charset="utf-8"></script>
+  <script src="//cdn.jsdelivr.net/ace/1.1.5/min/ace.js" type="text/javascript" charset="utf-8"></script>
+  <script src="//cdn.jsdelivr.net/ace/1.1.5/min/ext-modelist.js" type="text/javascript" charset="utf-8"></script>
   <script src="js/bootstrap-select.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="js/bootstrap-slider.js" type="text/javascript" charset="utf-8"></script>
  </head>
